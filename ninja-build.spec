@@ -1,8 +1,8 @@
-%global githash 5dc55a3
+#global githash 5dc55a3
 
 Name:           ninja-build
-Version:        0
-Release:        0.6.20120719git%{githash}%{?dist}
+Version:        1.0.0
+Release:        1%{?dist}
 Group:          Development/Tools
 Summary:        A small build system with a focus on speed
 
@@ -11,7 +11,8 @@ URL:            http://martine.github.com/ninja/
 #VCS:            git://github.com/martine/ninja.git
 # Snapshot from github
 # Downloaded from https://github.com/martine/ninja/tarball/%{githash}
-Source0:        martine-ninja-%{githash}.tar.gz
+#Source0:        martine-ninja-%{githash}.tar.gz
+Source0:        https://github.com/martine/ninja/archive/v%{version}.tar.gz
 Source1:        ninja.vim
 
 BuildRequires:  asciidoc
@@ -26,7 +27,7 @@ fast as possible.
 
 
 %prep
-%setup -q -n martine-ninja-%{githash}
+%setup -q -n ninja-%{version}
 
 
 %build
@@ -73,6 +74,9 @@ install -p -m 644 misc/zsh-completion %{buildroot}%{_datadir}/zsh/site-functions
 
 
 %changelog
+* Sun Nov 04 2012 Ben Boeckel <mathstuf@gmail.com> - 1.0.0-1
+- Update to 1.0.0
+
 * Thu Jul 19 2012 Ben Boeckel <mathstuf@gmail.com> - 0-0.6.20120719git5dc55a3
 - Update to new snapshot
 
