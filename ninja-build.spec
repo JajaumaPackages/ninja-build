@@ -2,7 +2,7 @@
 
 Name:           ninja-build
 Version:        1.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Group:          Development/Tools
 Summary:        A small build system with a focus on speed
 
@@ -74,6 +74,9 @@ install -p -m 644 misc/zsh-completion %{buildroot}%{_datadir}/zsh/site-functions
 
 
 %changelog
+* Thu Feb 14 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
+
 * Sun Nov 04 2012 Ben Boeckel <mathstuf@gmail.com> - 1.0.0-1
 - Update to 1.0.0
 
