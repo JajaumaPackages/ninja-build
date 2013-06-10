@@ -1,8 +1,8 @@
 #global githash 5dc55a3
 
 Name:           ninja-build
-Version:        1.0.0
-Release:        2%{?dist}
+Version:        1.3.4
+Release:        1%{?dist}
 Group:          Development/Tools
 Summary:        A small build system with a focus on speed
 
@@ -16,6 +16,8 @@ Source0:        https://github.com/martine/ninja/archive/v%{version}.tar.gz
 Source1:        ninja.vim
 
 BuildRequires:  asciidoc
+BuildRequires:  gtest-devel
+BuildRequires:  re2c
 Requires:       emacs-filesystem
 Requires:       vim-filesystem
 
@@ -35,6 +37,11 @@ CFLAGS="%{optflags}"
 export CFLAGS
 ./bootstrap.py --verbose -- --debug
 ./ninja -v manual
+./ninja -v ninja_test
+
+
+%check
+./ninja_test
 
 
 %install
@@ -74,6 +81,10 @@ install -p -m 644 misc/zsh-completion %{buildroot}%{_datadir}/zsh/site-functions
 
 
 %changelog
+* Sun Jun 09 2013 Ben Boeckel <mathstuf@gmail.com> - 1.3.4-1
+- Update to 1.3.4
+- Run test suite
+
 * Thu Feb 14 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
 
