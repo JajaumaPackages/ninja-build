@@ -2,7 +2,7 @@
 
 Name:           ninja-build
 Version:        1.3.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Group:          Development/Tools
 Summary:        A small build system with a focus on speed
 
@@ -41,6 +41,10 @@ export CFLAGS
 
 
 %check
+# workaround possible too low default limits
+ulimit -n 2048
+ulimit -u 2048
+
 ./ninja_test
 
 
@@ -81,6 +85,10 @@ install -p -m 644 misc/zsh-completion %{buildroot}%{_datadir}/zsh/site-functions
 
 
 %changelog
+* Fri Jun 21 2013 Dan Horák <dan[at]danny.cz> - 1.3.4-2
+- workaround possible too low limits for number of processes and open files,
+  fixes build on ppc/ppc64 and s390(x)
+
 * Sun Jun 09 2013 Ben Boeckel <mathstuf@gmail.com> - 1.3.4-1
 - Update to 1.3.4
 - Run test suite
