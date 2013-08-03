@@ -2,7 +2,7 @@
 
 Name:           ninja-build
 Version:        1.3.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Group:          Development/Tools
 Summary:        A small build system with a focus on speed
 
@@ -85,6 +85,9 @@ install -p -m 644 misc/zsh-completion %{buildroot}%{_datadir}/zsh/site-functions
 
 
 %changelog
+* Sat Aug 03 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.3.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
+
 * Fri Jun 21 2013 Dan Horák <dan[at]danny.cz> - 1.3.4-2
 - workaround possible too low limits for number of processes and open files,
   fixes build on ppc/ppc64 and s390(x)
