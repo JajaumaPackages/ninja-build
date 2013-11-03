@@ -2,7 +2,7 @@
 
 Name:           ninja-build
 Version:        1.3.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Group:          Development/Tools
 Summary:        A small build system with a focus on speed
 
@@ -53,9 +53,6 @@ ulimit -u 2048
 install -p -m 755 -d %{buildroot}%{_bindir}
 install -p -m 755 ninja %{buildroot}%{_bindir}/ninja-build
 
-install -p -m 755 -d %{buildroot}%{_docdir}/%{name}-%{version}
-install -p -m 644 doc/manual.html %{buildroot}%{_docdir}/%{name}-%{version}/manual.html
-
 install -p -m 755 -d %{buildroot}%{_sysconfdir}/bash_completion.d
 install -p -m 644 misc/bash-completion %{buildroot}%{_sysconfdir}/bash_completion.d/ninja-bash-completion
 
@@ -72,9 +69,8 @@ install -p -m 644 misc/zsh-completion %{buildroot}%{_datadir}/zsh/site-functions
 
 
 %files
-%doc COPYING README
+%doc COPYING README doc/manual.html
 %{_bindir}/ninja-build
-%{_docdir}/%{name}-%{version}/manual.html
 # bash-completion does not own this
 %{_sysconfdir}/bash_completion.d/
 %{_datadir}/emacs/site-lisp/ninja-mode.el
@@ -85,6 +81,9 @@ install -p -m 644 misc/zsh-completion %{buildroot}%{_datadir}/zsh/site-functions
 
 
 %changelog
+* Sun Nov  3 2013 Ville Skyttä <ville.skytta@iki.fi> - 1.3.4-4
+- Use special %%doc to install all docs (#994005).
+
 * Sat Aug 03 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.3.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
 
