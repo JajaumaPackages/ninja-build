@@ -1,8 +1,8 @@
 #global githash 5dc55a3
 
 Name:           ninja-build
-Version:        1.3.4
-Release:        4%{?dist}
+Version:        1.4.0
+Release:        1%{?dist}
 Group:          Development/Tools
 Summary:        A small build system with a focus on speed
 
@@ -81,6 +81,9 @@ install -p -m 644 misc/zsh-completion %{buildroot}%{_datadir}/zsh/site-functions
 
 
 %changelog
+* Wed Nov 20 2013 Ben Boeckel <mathstuf@gmail.com> - 1.4.0-1
+- Update to 1.4.0
+
 * Sun Nov  3 2013 Ville Skyttä <ville.skytta@iki.fi> - 1.3.4-4
 - Use special %%doc to install all docs (#994005).
 
