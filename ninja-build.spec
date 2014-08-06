@@ -24,7 +24,7 @@ fast as possible.
 
 %build
 CFLAGS="%{optflags}" LDFLAGS="%{?__global_ldflags}" \
-%{__python2} bootstrap.py --verbose --debug
+%{__python2} bootstrap.py --verbose
 ./ninja -v manual
 ./ninja -v ninja_test
 
