@@ -1,6 +1,6 @@
 Name:           ninja-build
 Version:        1.5.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A small build system with a focus on speed
 License:        ASL 2.0
 URL:            http://martine.github.com/ninja/
@@ -56,6 +56,9 @@ ulimit -n 2048 && ulimit -u 2048
 %{_datadir}/zsh/
 
 %changelog
+* Sun Aug 17 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.5.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
+
 * Tue Aug 05 2014 Christopher Meng <rpm@cicku.me> - 1.5.1-1
 - Update to 1.5.1
 
