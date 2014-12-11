@@ -6,6 +6,8 @@ License:        ASL 2.0
 URL:            http://martine.github.com/ninja/
 Source0:        https://github.com/martine/ninja/archive/v%{version}.tar.gz#/ninja-%{version}.tar.gz
 Source1:        ninja.vim
+# https://github.com/martine/ninja/pull/882
+Patch0:         ninja-1.5.3-verbose-build.patch
 BuildRequires:  asciidoc
 BuildRequires:  gtest-devel
 BuildRequires:  python2-devel
@@ -21,6 +23,7 @@ fast as possible.
 
 %prep
 %setup -qn ninja-%{version}
+%patch0 -p1 -b .verbose-build
 
 %build
 CFLAGS="%{optflags}" LDFLAGS="%{?__global_ldflags}" \
