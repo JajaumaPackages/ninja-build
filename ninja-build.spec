@@ -1,6 +1,6 @@
 Name:           ninja-build
 Version:        1.5.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A small build system with a focus on speed
 License:        ASL 2.0
 URL:            http://martine.github.com/ninja/
@@ -36,7 +36,7 @@ CFLAGS="%{optflags}" LDFLAGS="%{?__global_ldflags}" \
 mkdir -p %{buildroot}/{%{_bindir},%{_sysconfdir}/bash_completion.d,%{_datadir}/emacs/site-lisp,%{_datadir}/vim/vimfiles/syntax,%{_datadir}/vim/vimfiles/ftdetect,%{_datadir}/zsh/site-functions}
 
 install -pm755 ninja %{buildroot}%{_bindir}/ninja-build
-install -pm644 misc/bash-completion %{buildroot}%{_sysconfdir}/bash_completion.d/ninja-bash-completion
+install -pm644 misc/bash-completion %{buildroot}%{_datadir}/bash-completion/completions/ninja-bash-completion
 install -pm644 misc/ninja-mode.el %{buildroot}%{_datadir}/emacs/site-lisp/ninja-mode.el
 install -pm644 misc/ninja.vim %{buildroot}%{_datadir}/vim/vimfiles/syntax/ninja.vim
 install -pm644 %{SOURCE1} %{buildroot}%{_datadir}/vim/vimfiles/ftdetect/ninja.vim
@@ -50,8 +50,7 @@ ulimit -n 2048 && ulimit -u 2048
 %files
 %doc COPYING HACKING.md README doc/manual.html
 %{_bindir}/ninja-build
-# bash-completion does not own this
-%{_sysconfdir}/bash_completion.d/
+%{_datadir}/bash-completion/completions/ninja-bash-completion
 %{_datadir}/emacs/site-lisp/ninja-mode.el
 %{_datadir}/vim/vimfiles/syntax/ninja.vim
 %{_datadir}/vim/vimfiles/ftdetect/ninja.vim
@@ -59,6 +58,9 @@ ulimit -n 2048 && ulimit -u 2048
 %{_datadir}/zsh/
 
 %changelog
+* Sun Feb 08 2015 Ben Boeckel <mathstuf@gmail.com> - 1.5.3-2
+- Update bash-completions location
+
 * Wed Dec 10 2014 Ben Boeckel <mathstuf@gmail.com> - 1.5.3-1
 - Update to 1.5.3
 
