@@ -33,7 +33,7 @@ CFLAGS="%{optflags}" LDFLAGS="%{?__global_ldflags}" \
 
 %install
 # TODO: Install ninja_syntax.py?
-mkdir -p %{buildroot}/{%{_bindir},%{_sysconfdir}/bash_completion.d,%{_datadir}/emacs/site-lisp,%{_datadir}/vim/vimfiles/syntax,%{_datadir}/vim/vimfiles/ftdetect,%{_datadir}/zsh/site-functions}
+mkdir -p %{buildroot}/{%{_bindir},%{_datadir}/bash-completion/completions,%{_datadir}/emacs/site-lisp,%{_datadir}/vim/vimfiles/syntax,%{_datadir}/vim/vimfiles/ftdetect,%{_datadir}/zsh/site-functions}
 
 install -pm755 ninja %{buildroot}%{_bindir}/ninja-build
 install -pm644 misc/bash-completion %{buildroot}%{_datadir}/bash-completion/completions/ninja-bash-completion
