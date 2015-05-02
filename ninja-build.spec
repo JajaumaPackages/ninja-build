@@ -1,6 +1,6 @@
 Name:           ninja-build
 Version:        1.5.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A small build system with a focus on speed
 License:        ASL 2.0
 URL:            http://martine.github.com/ninja/
@@ -58,6 +58,9 @@ ulimit -n 2048 && ulimit -u 2048
 %{_datadir}/zsh/
 
 %changelog
+* Sat May 02 2015 Kalev Lember <kalevlember@gmail.com> - 1.5.3-3
+- Rebuilt for GCC 5 C++11 ABI change
+
 * Sun Feb 08 2015 Ben Boeckel <mathstuf@gmail.com> - 1.5.3-2
 - Update bash-completions location
 
