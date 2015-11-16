@@ -1,11 +1,13 @@
 Name:           ninja-build
 Version:        1.6.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A small build system with a focus on speed
 License:        ASL 2.0
 URL:            http://martine.github.com/ninja/
 Source0:        https://github.com/martine/ninja/archive/v%{version}.tar.gz#/ninja-%{version}.tar.gz
 Source1:        ninja.vim
+# Rename mentions of the executable name to be ninja-build.
+Patch1000:      ninja-1.6.0-binary-rename.patch
 BuildRequires:  asciidoc
 BuildRequires:  gtest-devel
 BuildRequires:  python2-devel
@@ -21,6 +23,7 @@ fast as possible.
 
 %prep
 %setup -qn ninja-%{version}
+%patch1000 -p1 -b .binary-rename
 
 %build
 CFLAGS="%{optflags}" LDFLAGS="%{?__global_ldflags}" \
@@ -55,6 +58,9 @@ ulimit -n 2048 && ulimit -u 2048
 %{_datadir}/zsh/
 
 %changelog
+* Mon Nov 16 2015 Ben Boeckel <mathstuf@gmail.com> - 1.6.0-2
+- Add patch to rename mentions of the binary name
+
 * Sun Jul 19 2015 Ben Boeckel <mathstuf@gmail.com> - 1.6.0-1
 - Update to 1.6.0
 
