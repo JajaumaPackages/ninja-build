@@ -1,6 +1,6 @@
 Name:           ninja-build
 Version:        1.6.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A small build system with a focus on speed
 License:        ASL 2.0
 URL:            http://martine.github.com/ninja/
@@ -58,6 +58,9 @@ ulimit -n 2048 && ulimit -u 2048
 %{_datadir}/zsh/
 
 %changelog
+* Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
+
 * Mon Nov 16 2015 Ben Boeckel <mathstuf@gmail.com> - 1.6.0-2
 - Add patch to rename mentions of the binary name
 
