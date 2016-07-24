@@ -8,6 +8,8 @@ Source0:        https://github.com/martine/ninja/archive/v%{version}.tar.gz#/nin
 Source1:        ninja.vim
 # Rename mentions of the executable name to be ninja-build.
 Patch1000:      ninja-1.7.1-binary-rename.patch
+# Disable a test which takes too many resources for koji.
+Patch1001:      ninja-1.7.1-resource-intensive-test.patch
 BuildRequires:  asciidoc
 BuildRequires:  gtest-devel
 BuildRequires:  python2-devel
@@ -24,6 +26,7 @@ fast as possible.
 %prep
 %setup -qn ninja-%{version}
 %patch1000 -p1 -b .binary-rename
+%patch1001 -p1 -b .resource-intensive-test
 
 %build
 CFLAGS="%{optflags}" LDFLAGS="%{?__global_ldflags}" \
@@ -43,8 +46,6 @@ install -pm644 %{SOURCE1} %{buildroot}%{_datadir}/vim/vimfiles/ftdetect/ninja.vi
 install -pm644 misc/zsh-completion %{buildroot}%{_datadir}/zsh/site-functions/_ninja
 
 %check
-# workaround possible too low default limits
-ulimit -n 4096 && ulimit -u 4096
 ./ninja_test
 
 %files
@@ -61,6 +62,7 @@ ulimit -n 4096 && ulimit -u 4096
 * Sat Jul 23 2016 Ben Boeckel <mathstuf@gmail.com> - 1.7.1-1
 - update to 1.7.1
 - fix bash completion for the binary rename (#1352330)
+- disable test which fails to koji rlimit settings
 
 * Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
