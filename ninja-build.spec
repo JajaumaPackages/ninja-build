@@ -44,7 +44,7 @@ install -pm644 misc/zsh-completion %{buildroot}%{_datadir}/zsh/site-functions/_n
 
 %check
 # workaround possible too low default limits
-ulimit -n 2048 && ulimit -u 2048
+ulimit -n 4096 && ulimit -u 4096
 ./ninja_test
 
 %files
