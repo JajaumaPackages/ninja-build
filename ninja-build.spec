@@ -51,7 +51,7 @@ install -pm644 misc/zsh-completion %{buildroot}%{_datadir}/zsh/site-functions/_n
 %files
 %doc COPYING HACKING.md README doc/manual.html
 %{_bindir}/ninja-build
-%{_datadir}/bash-completion/completions/ninja-bash-completion
+%{_datadir}/bash-completion/completions/ninja-build
 %{_datadir}/emacs/site-lisp/ninja-mode.el
 %{_datadir}/vim/vimfiles/syntax/ninja.vim
 %{_datadir}/vim/vimfiles/ftdetect/ninja.vim
