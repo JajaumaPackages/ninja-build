@@ -1,13 +1,13 @@
 Name:           ninja-build
-Version:        1.6.0
-Release:        3%{?dist}
+Version:        1.7.1
+Release:        1%{?dist}
 Summary:        A small build system with a focus on speed
 License:        ASL 2.0
 URL:            http://martine.github.com/ninja/
 Source0:        https://github.com/martine/ninja/archive/v%{version}.tar.gz#/ninja-%{version}.tar.gz
 Source1:        ninja.vim
 # Rename mentions of the executable name to be ninja-build.
-Patch1000:      ninja-1.6.0-binary-rename.patch
+Patch1000:      ninja-1.7.1-binary-rename.patch
 BuildRequires:  asciidoc
 BuildRequires:  gtest-devel
 BuildRequires:  python2-devel
@@ -36,7 +36,7 @@ CFLAGS="%{optflags}" LDFLAGS="%{?__global_ldflags}" \
 mkdir -p %{buildroot}/{%{_bindir},%{_datadir}/bash-completion/completions,%{_datadir}/emacs/site-lisp,%{_datadir}/vim/vimfiles/syntax,%{_datadir}/vim/vimfiles/ftdetect,%{_datadir}/zsh/site-functions}
 
 install -pm755 ninja %{buildroot}%{_bindir}/ninja-build
-install -pm644 misc/bash-completion %{buildroot}%{_datadir}/bash-completion/completions/ninja-bash-completion
+install -pm644 misc/bash-completion %{buildroot}%{_datadir}/bash-completion/completions/ninja-build
 install -pm644 misc/ninja-mode.el %{buildroot}%{_datadir}/emacs/site-lisp/ninja-mode.el
 install -pm644 misc/ninja.vim %{buildroot}%{_datadir}/vim/vimfiles/syntax/ninja.vim
 install -pm644 %{SOURCE1} %{buildroot}%{_datadir}/vim/vimfiles/ftdetect/ninja.vim
@@ -58,6 +58,10 @@ ulimit -n 2048 && ulimit -u 2048
 %{_datadir}/zsh/
 
 %changelog
+* Sat Jul 23 2016 Ben Boeckel <mathstuf@gmail.com> - 1.7.1-1
+- update to 1.7.1
+- fix bash completion for the binary rename (#1352330)
+
 * Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
 

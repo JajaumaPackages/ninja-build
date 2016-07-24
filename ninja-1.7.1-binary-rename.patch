@@ -1,6 +1,23 @@
-diff -u -r -U5 --no-dereference ninja-1.6.0/misc/zsh-completion ninja-1.6.0.binary-rename/misc/zsh-completion
---- ninja-1.6.0/misc/zsh-completion	2015-06-29 13:21:30.000000000 -0400
-+++ ninja-1.6.0.binary-rename/misc/zsh-completion	2015-11-16 17:56:39.313149083 -0500
+diff -u -r -U5 --no-dereference ninja-1.7.1/misc/bash-completion ninja-1.7.1.binary-rename/misc/bash-completion
+--- ninja-1.7.1/misc/bash-completion	2016-04-28 10:56:44.000000000 -0400
++++ ninja-1.7.1.binary-rename/misc/bash-completion	2016-07-23 22:34:22.679659551 -0400
+@@ -47,11 +47,11 @@
+ 	    case $opt in
+                 # eval for tilde expansion
+ 		C) eval dir="$OPTARG" ;;
+ 	    esac
+ 	done;
+-	targets_command="eval ninja -C \"${dir}\" -t targets all 2>/dev/null | cut -d: -f1"
++	targets_command="eval ninja-build -C \"${dir}\" -t targets all 2>/dev/null | cut -d: -f1"
+ 	COMPREPLY=($(compgen -W '`${targets_command}`' -- "$cur"))
+     fi
+     return
+ }
+-complete -F _ninja_target ninja
++complete -F _ninja_target ninja ninja-build
+diff -u -r -U5 --no-dereference ninja-1.7.1/misc/zsh-completion ninja-1.7.1.binary-rename/misc/zsh-completion
+--- ninja-1.7.1/misc/zsh-completion	2016-04-28 10:56:44.000000000 -0400
++++ ninja-1.7.1.binary-rename/misc/zsh-completion	2016-07-23 22:32:50.157488686 -0400
 @@ -1,6 +1,6 @@
 -#compdef ninja
 +#compdef ninja ninja-build
@@ -9,10 +26,11 @@ diff -u -r -U5 --no-dereference ninja-1.6.0/misc/zsh-completion ninja-1.6.0.bina
  # Licensed under the Apache License, Version 2.0 (the "License");
  # you may not use this file except in compliance with the License.
  # You may obtain a copy of the License at
-diff -u -r -U5 --no-dereference ninja-1.6.0/src/msvc_helper_main-win32.cc ninja-1.6.0.binary-rename/src/msvc_helper_main-win32.cc
---- ninja-1.6.0/src/msvc_helper_main-win32.cc	2015-06-29 13:21:30.000000000 -0400
-+++ ninja-1.6.0.binary-rename/src/msvc_helper_main-win32.cc	2015-11-16 17:56:39.244148944 -0500
-@@ -25,11 +25,11 @@
+Only in ninja-1.7.1.binary-rename: ninja-1.7.1-binary-rename.patch
+diff -u -r -U5 --no-dereference ninja-1.7.1/src/msvc_helper_main-win32.cc ninja-1.7.1.binary-rename/src/msvc_helper_main-win32.cc
+--- ninja-1.7.1/src/msvc_helper_main-win32.cc	2016-04-28 10:56:44.000000000 -0400
++++ ninja-1.7.1.binary-rename/src/msvc_helper_main-win32.cc	2016-07-23 22:32:50.158488688 -0400
+@@ -26,11 +26,11 @@
  
  namespace {
  
@@ -25,10 +43,11 @@ diff -u -r -U5 --no-dereference ninja-1.6.0/src/msvc_helper_main-win32.cc ninja-
  "  -o FILE    write output dependency information to FILE.d\n"
  "  -p STRING  localized prefix of msvc's /showIncludes output\n"
           );
-diff -u -r -U5 --no-dereference ninja-1.6.0/src/ninja.cc ninja-1.6.0.binary-rename/src/ninja.cc
---- ninja-1.6.0/src/ninja.cc	2015-06-29 13:21:30.000000000 -0400
-+++ ninja-1.6.0.binary-rename/src/ninja.cc	2015-11-16 17:55:54.095057999 -0500
-@@ -188,11 +188,11 @@
+Only in ninja-1.7.1.binary-rename/src: msvc_helper_main-win32.cc.orig
+diff -u -r -U5 --no-dereference ninja-1.7.1/src/ninja.cc ninja-1.7.1.binary-rename/src/ninja.cc
+--- ninja-1.7.1/src/ninja.cc	2016-04-28 10:56:44.000000000 -0400
++++ ninja-1.7.1.binary-rename/src/ninja.cc	2016-07-23 22:33:09.775525262 -0400
+@@ -191,11 +191,11 @@
  };
  
  /// Print usage information.
@@ -41,11 +60,11 @@ diff -u -r -U5 --no-dereference ninja-1.6.0/src/ninja.cc ninja-1.6.0.binary-rena
  "\n"
  "options:\n"
  "  --version  print ninja version (\"%s\")\n"
-@@ -288,13 +288,13 @@
+@@ -283,13 +283,13 @@
      return node;
    } else {
-     *err = "unknown target '" + path + "'";
- 
+     *err =
+         "unknown target '" + Node::PathDecanonicalized(path, slash_bits) + "'";
      if (path == "clean") {
 -      *err += ", did you mean 'ninja -t clean'?";
 +      *err += ", did you mean 'ninja-build -t clean'?";
@@ -57,7 +76,7 @@ diff -u -r -U5 --no-dereference ninja-1.6.0/src/ninja.cc ninja-1.6.0.binary-rena
        if (suggestion) {
          *err += ", did you mean '" + suggestion->path() + "'?";
        }
-@@ -590,11 +590,11 @@
+@@ -581,11 +581,11 @@
      case 'r':
        clean_rules = true;
        break;
@@ -70,9 +89,11 @@ diff -u -r -U5 --no-dereference ninja-1.6.0/src/ninja.cc ninja-1.6.0.binary-rena
  "  -g     also clean files marked as ninja generator output\n"
  "  -r     interpret targets as a list of rules to clean instead\n"
               );
-diff -u -r -U5 --no-dereference ninja-1.6.0/src/version.cc ninja-1.6.0.binary-rename/src/version.cc
---- ninja-1.6.0/src/version.cc	2015-06-29 13:21:30.000000000 -0400
-+++ ninja-1.6.0.binary-rename/src/version.cc	2015-11-16 17:55:54.167058144 -0500
+Only in ninja-1.7.1.binary-rename/src: ninja.cc.orig
+Only in ninja-1.7.1.binary-rename/src: ninja.cc.rej
+diff -u -r -U5 --no-dereference ninja-1.7.1/src/version.cc ninja-1.7.1.binary-rename/src/version.cc
+--- ninja-1.7.1/src/version.cc	2016-04-28 10:56:44.000000000 -0400
++++ ninja-1.7.1.binary-rename/src/version.cc	2016-07-23 22:32:50.159488690 -0400
 @@ -36,11 +36,11 @@
    ParseVersion(kNinjaVersion, &bin_major, &bin_minor);
    int file_major, file_minor;
