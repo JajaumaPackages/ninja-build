@@ -1,11 +1,12 @@
 Name:           ninja-build
 Version:        1.7.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A small build system with a focus on speed
 License:        ASL 2.0
 URL:            http://martine.github.com/ninja/
 Source0:        https://github.com/martine/ninja/archive/v%{version}.tar.gz#/ninja-%{version}.tar.gz
-Source1:        macros.ninja
+Source1:        ninja.vim
+Source2:        macros.ninja
 # Rename mentions of the executable name to be ninja-build.
 Patch1000:      ninja-1.7.1-binary-rename.patch
 # Disable a test which takes too many resources for koji.
@@ -25,7 +26,6 @@ fast as possible.
 
 %prep
 %autosetup -n ninja-%{version} -p1
-cp -p %{SOURCE1} .
 
 %build
 CFLAGS="%{optflags}" LDFLAGS="%{?__global_ldflags}" \
@@ -39,9 +39,9 @@ install -Dpm0755 ninja %{buildroot}%{_bindir}/ninja-build
 install -Dpm0644 misc/bash-completion %{buildroot}%{_datadir}/bash-completion/completions/ninja-build
 install -Dpm0644 misc/ninja-mode.el %{buildroot}%{_datadir}/emacs/site-lisp/ninja-mode.el
 install -Dpm0644 misc/ninja.vim %{buildroot}%{_datadir}/vim/vimfiles/syntax/ninja.vim
-install -Dpm0644 %{SOURCE1} %{buildroot}%{_datadir}/vim/vimfiles/ftdetect/ninja.vim
+install -Dpm0644 %{S:1} %{buildroot}%{_datadir}/vim/vimfiles/ftdetect/ninja.vim
 install -Dpm0644 misc/zsh-completion %{buildroot}%{_datadir}/zsh/site-functions/_ninja
-install -Dpm0644 macros.ninja %{buildroot}%{rpmmacrodir}/macros.ninja
+install -Dpm0644 %{S:2} %{buildroot}%{rpmmacrodir}/macros.ninja
 
 %check
 ./ninja_test
@@ -59,6 +59,9 @@ install -Dpm0644 macros.ninja %{buildroot}%{rpmmacrodir}/macros.ninja
 %{rpmmacrodir}/macros.ninja
 
 %changelog
+* Mon Oct 10 2016 Igor Gnatenko <ignatenko@redhat.com> - 1.7.1-3
+- Fix install ninja.vim
+
 * Sat Oct 08 2016 Igor Gnatenko <ignatenko@redhat.com> - 1.7.1-2
 - Add RPM macro
 
