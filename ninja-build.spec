@@ -1,19 +1,19 @@
 Name:           ninja-build
-Version:        1.7.1
-Release:        3%{?dist}
+Version:        1.7.2
+Release:        1%{?dist}
 Summary:        A small build system with a focus on speed
 License:        ASL 2.0
 URL:            http://martine.github.com/ninja/
 Source0:        https://github.com/martine/ninja/archive/v%{version}.tar.gz#/ninja-%{version}.tar.gz
 Source1:        ninja.vim
 Source2:        macros.ninja
-# Rename mentions of the executable name to be ninja-build.
-Patch1000:      ninja-1.7.1-binary-rename.patch
-# Disable a test which takes too many resources for koji.
-Patch1001:      ninja-1.7.1-resource-intensive-test.patch
+Patch0001:      0001-Rename-mentions-of-the-executable-name-to-be-ninja-b.patch
+Patch0002:      0002-Disable-test-which-takes-too-many-resources-for-koji.patch
+BuildRequires:  gcc-c++
+BuildRequires:  python3-devel
 BuildRequires:  asciidoc
 BuildRequires:  gtest-devel
-BuildRequires:  python2-devel
+#BuildRequires:  python2-devel
 BuildRequires:  re2c >= 0.11.3
 Requires:       emacs-filesystem
 Requires:       vim-filesystem
@@ -29,7 +29,7 @@ fast as possible.
 
 %build
 CFLAGS="%{optflags}" LDFLAGS="%{?__global_ldflags}" \
-%{__python2} configure.py --bootstrap --verbose
+%{__python3} configure.py --bootstrap --verbose
 ./ninja -v manual
 ./ninja -v ninja_test
 
@@ -59,6 +59,9 @@ install -Dpm0644 %{S:2} %{buildroot}%{rpmmacrodir}/macros.ninja
 %{rpmmacrodir}/macros.ninja
 
 %changelog
+* Mon Nov 28 2016 Igor Gnatenko <i.gnatenko.brain@gmail.com> - 1.7.2-1
+- Update to 1.7.2
+
 * Mon Oct 10 2016 Igor Gnatenko <ignatenko@redhat.com> - 1.7.1-3
 - Fix install ninja.vim
 
