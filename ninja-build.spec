@@ -1,6 +1,6 @@
 Name:           ninja-build
 Version:        1.7.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A small build system with a focus on speed
 License:        ASL 2.0
 URL:            http://martine.github.com/ninja/
@@ -10,10 +10,13 @@ Source2:        macros.ninja
 Patch0001:      0001-Rename-mentions-of-the-executable-name-to-be-ninja-b.patch
 Patch0002:      0002-Disable-test-which-takes-too-many-resources-for-koji.patch
 BuildRequires:  gcc-c++
+%if 0%{?rhel} && 0%{?rhel} <= 7
+BuildRequires:  python2-devel
+%else
 BuildRequires:  python3-devel
+%endif
 BuildRequires:  asciidoc
 BuildRequires:  gtest-devel
-#BuildRequires:  python2-devel
 BuildRequires:  re2c >= 0.11.3
 Requires:       emacs-filesystem
 Requires:       vim-filesystem
@@ -29,7 +32,12 @@ fast as possible.
 
 %build
 CFLAGS="%{optflags}" LDFLAGS="%{?__global_ldflags}" \
-%{__python3} configure.py --bootstrap --verbose
+%if 0%{?rhel} && 0%{?rhel} <= 7
+%{__python2} \
+%else
+%{__python3} \
+%endif
+  configure.py --bootstrap --verbose
 ./ninja -v manual
 ./ninja -v ninja_test
 
@@ -59,6 +67,9 @@ install -Dpm0644 %{S:2} %{buildroot}%{rpmmacrodir}/macros.ninja
 %{rpmmacrodir}/macros.ninja
 
 %changelog
+* Sat Dec 03 2016 Igor Gnatenko <i.gnatenko.brain@gmail.com> - 1.7.2-2
+- Add EPEL hacks
+
 * Mon Nov 28 2016 Igor Gnatenko <i.gnatenko.brain@gmail.com> - 1.7.2-1
 - Update to 1.7.2
 
