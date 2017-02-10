@@ -1,6 +1,6 @@
 Name:           ninja-build
 Version:        1.7.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A small build system with a focus on speed
 License:        ASL 2.0
 URL:            http://martine.github.com/ninja/
@@ -67,6 +67,9 @@ install -Dpm0644 %{S:2} %{buildroot}%{rpmmacrodir}/macros.ninja
 %{rpmmacrodir}/macros.ninja
 
 %changelog
+* Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
+
 * Sat Dec 03 2016 Igor Gnatenko <i.gnatenko.brain@gmail.com> - 1.7.2-2
 - Add EPEL hacks
 
