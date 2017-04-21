@@ -1,13 +1,12 @@
 Name:           ninja-build
 Version:        1.7.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A small build system with a focus on speed
 License:        ASL 2.0
 URL:            http://martine.github.com/ninja/
 Source0:        https://github.com/martine/ninja/archive/v%{version}.tar.gz#/ninja-%{version}.tar.gz
 Source1:        ninja.vim
 Source2:        macros.ninja
-Patch0001:      0001-Rename-mentions-of-the-executable-name-to-be-ninja-b.patch
 Patch0002:      0002-Disable-test-which-takes-too-many-resources-for-koji.patch
 BuildRequires:  gcc-c++
 %if 0%{?rhel} && 0%{?rhel} <= 7
@@ -43,13 +42,15 @@ CFLAGS="%{optflags}" LDFLAGS="%{?__global_ldflags}" \
 
 %install
 # TODO: Install ninja_syntax.py?
-install -Dpm0755 ninja %{buildroot}%{_bindir}/ninja-build
-install -Dpm0644 misc/bash-completion %{buildroot}%{_datadir}/bash-completion/completions/ninja-build
+install -Dpm0755 ninja -t %{buildroot}%{_bindir}/
+install -Dpm0644 misc/bash-completion %{buildroot}%{_datadir}/bash-completion/completions/ninja
 install -Dpm0644 misc/ninja-mode.el %{buildroot}%{_datadir}/emacs/site-lisp/ninja-mode.el
 install -Dpm0644 misc/ninja.vim %{buildroot}%{_datadir}/vim/vimfiles/syntax/ninja.vim
 install -Dpm0644 %{S:1} %{buildroot}%{_datadir}/vim/vimfiles/ftdetect/ninja.vim
 install -Dpm0644 misc/zsh-completion %{buildroot}%{_datadir}/zsh/site-functions/_ninja
 install -Dpm0644 %{S:2} %{buildroot}%{rpmmacrodir}/macros.ninja
+
+ln -s ninja %{buildroot}%{_bindir}/ninja-build
 
 %check
 ./ninja_test
@@ -57,8 +58,9 @@ install -Dpm0644 %{S:2} %{buildroot}%{rpmmacrodir}/macros.ninja
 %files
 %license COPYING
 %doc HACKING.md README doc/manual.html
+%{_bindir}/ninja
 %{_bindir}/ninja-build
-%{_datadir}/bash-completion/completions/ninja-build
+%{_datadir}/bash-completion/completions/ninja
 %{_datadir}/emacs/site-lisp/ninja-mode.el
 %{_datadir}/vim/vimfiles/syntax/ninja.vim
 %{_datadir}/vim/vimfiles/ftdetect/ninja.vim
@@ -67,6 +69,10 @@ install -Dpm0644 %{S:2} %{buildroot}%{rpmmacrodir}/macros.ninja
 %{rpmmacrodir}/macros.ninja
 
 %changelog
+* Fri Apr 21 2017 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.7.2-4
+- Rename main executable to ninja (#1166135)
+  (compatibility symlink is added)
+
 * Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
 

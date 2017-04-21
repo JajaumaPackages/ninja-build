@@ -1,4 +1,4 @@
-%__ninja %{_bindir}/ninja-build
+%__ninja %{_bindir}/ninja
 %__ninja_common_opts -v %{?_smp_mflags}
 
 %ninja_build \
