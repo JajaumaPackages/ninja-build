@@ -1,6 +1,6 @@
 Name:           ninja-build
 Version:        1.7.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A small build system with a focus on speed
 License:        ASL 2.0
 URL:            http://martine.github.com/ninja/
@@ -69,6 +69,9 @@ ln -s ninja %{buildroot}%{_bindir}/ninja-build
 %{rpmmacrodir}/macros.ninja
 
 %changelog
+* Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
+
 * Fri Apr 21 2017 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.7.2-4
 - Rename main executable to ninja (#1166135)
   (compatibility symlink is added)
