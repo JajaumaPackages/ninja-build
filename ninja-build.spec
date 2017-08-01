@@ -1,12 +1,13 @@
 Name:           ninja-build
 Version:        1.7.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A small build system with a focus on speed
 License:        ASL 2.0
 URL:            http://martine.github.com/ninja/
 Source0:        https://github.com/martine/ninja/archive/v%{version}.tar.gz#/ninja-%{version}.tar.gz
 Source1:        ninja.vim
 Source2:        macros.ninja
+Patch0001:      0001-Work-around-mtime-being-set-to-0-sometimes.patch
 Patch0002:      0002-Disable-test-which-takes-too-many-resources-for-koji.patch
 BuildRequires:  gcc-c++
 %if 0%{?rhel} && 0%{?rhel} <= 7
@@ -69,6 +70,9 @@ ln -s ninja %{buildroot}%{_bindir}/ninja-build
 %{rpmmacrodir}/macros.ninja
 
 %changelog
+* Tue Aug 01 2017 Kalev Lember <klember@redhat.com> - 1.7.2-6
+- Backport an upstream patch to handle ostree setting 0 mtime
+
 * Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
 
