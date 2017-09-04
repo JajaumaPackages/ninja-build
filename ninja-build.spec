@@ -8,7 +8,6 @@ Source0:        https://github.com/martine/ninja/archive/v%{version}.tar.gz#/nin
 Source1:        ninja.vim
 Source2:        macros.ninja
 Patch0001:      0001-Work-around-mtime-being-set-to-0-sometimes.patch
-Patch0002:      0002-Disable-test-which-takes-too-many-resources-for-koji.patch
 BuildRequires:  gcc-c++
 %if 0%{?rhel} && 0%{?rhel} <= 7
 BuildRequires:  python2-devel
@@ -54,7 +53,7 @@ install -Dpm0644 %{S:2} %{buildroot}%{rpmmacrodir}/macros.ninja
 ln -s ninja %{buildroot}%{_bindir}/ninja-build
 
 %check
-./ninja_test
+./ninja_test --gtest_filter=-SubprocessTest.SetWithLots
 
 %files
 %license COPYING
