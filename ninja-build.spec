@@ -1,13 +1,12 @@
 Name:           ninja-build
-Version:        1.7.2
-Release:        6%{?dist}
+Version:        1.8.0
+Release:        1%{?dist}
 Summary:        A small build system with a focus on speed
 License:        ASL 2.0
 URL:            http://martine.github.com/ninja/
-Source0:        https://github.com/martine/ninja/archive/v%{version}.tar.gz#/ninja-%{version}.tar.gz
+Source0:        https://github.com/martine/ninja/archive/v%{version}/ninja-%{version}.tar.gz
 Source1:        ninja.vim
 Source2:        macros.ninja
-Patch0001:      0001-Work-around-mtime-being-set-to-0-sometimes.patch
 BuildRequires:  gcc-c++
 %if 0%{?rhel} && 0%{?rhel} <= 7
 BuildRequires:  python2-devel
@@ -37,8 +36,8 @@ CFLAGS="%{optflags}" LDFLAGS="%{?__global_ldflags}" \
 %{__python3} \
 %endif
   configure.py --bootstrap --verbose
+./ninja -v all
 ./ninja -v manual
-./ninja -v ninja_test
 
 %install
 # TODO: Install ninja_syntax.py?
@@ -69,6 +68,9 @@ ln -s ninja %{buildroot}%{_bindir}/ninja-build
 %{rpmmacrodir}/macros.ninja
 
 %changelog
+* Sat Sep 02 2017 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 1.8.0-1
+- Update to 1.8.0
+
 * Tue Aug 01 2017 Kalev Lember <klember@redhat.com> - 1.7.2-6
 - Backport an upstream patch to handle ostree setting 0 mtime
 
