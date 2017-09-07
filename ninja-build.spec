@@ -1,5 +1,5 @@
 Name:           ninja-build
-Version:        1.8.0
+Version:        1.8.1
 Release:        1%{?dist}
 Summary:        A small build system with a focus on speed
 License:        ASL 2.0
@@ -68,6 +68,9 @@ ln -s ninja %{buildroot}%{_bindir}/ninja-build
 %{rpmmacrodir}/macros.ninja
 
 %changelog
+* Thu Sep 07 2017 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 1.8.1-1
+- Update to 1.8.1
+
 * Sat Sep 02 2017 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 1.8.0-1
 - Update to 1.8.0
 
