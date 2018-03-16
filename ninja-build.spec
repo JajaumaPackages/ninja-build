@@ -15,7 +15,6 @@ BuildRequires:  python3-devel
 %endif
 BuildRequires:  asciidoc
 BuildRequires:  gtest-devel
-BuildRequires:  re2c >= 0.11.3
 Requires:       emacs-filesystem
 Requires:       vim-filesystem
 
@@ -41,7 +40,7 @@ CFLAGS="%{optflags}" LDFLAGS="%{?__global_ldflags}" \
 
 %install
 # TODO: Install ninja_syntax.py?
-install -Dpm0755 ninja -t %{buildroot}%{_bindir}/
+install -Dpm0755 ninja %{buildroot}%{_bindir}/ninja
 install -Dpm0644 misc/bash-completion %{buildroot}%{_datadir}/bash-completion/completions/ninja
 install -Dpm0644 misc/ninja-mode.el %{buildroot}%{_datadir}/emacs/site-lisp/ninja-mode.el
 install -Dpm0644 misc/ninja.vim %{buildroot}%{_datadir}/vim/vimfiles/syntax/ninja.vim
